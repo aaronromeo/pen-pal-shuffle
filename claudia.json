@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "chat-roulette-executor",
+    "name": "chat-roulette",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "lcvxwesvdh",
+    "module": "bot"
+  }
+}
