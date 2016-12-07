@@ -13,6 +13,8 @@
     "huh": "^2.0.1"
   },
   "devDependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "eslint": "^3.11.1",
+    "eslint-config-defaults": "^9.0.0"
   }
 }
