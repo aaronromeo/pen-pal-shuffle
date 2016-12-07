@@ -1,10 +1,10 @@
 'use strict';
 
 const querystring = require('querystring');
-var https = require('https');
-var program = require('commander');
+let https = require('https');
+let program = require('commander');
 
-var options = {
+let options = {
   host: 'graph.facebook.com',
   path: '/v2.6/me/thread_settings',
   method: 'POST',
@@ -30,14 +30,32 @@ const gettingStarted = {
   ]
 };
 
+const persistentMenu = {
+  "setting_type" : "call_to_actions",
+  "thread_state" : "existing_thread",
+  "call_to_actions":[
+    {
+      "type":"postback",
+      "title":"Help",
+      "payload":"persistent:help"
+    },
+    {
+      "type":"postback",
+      "title":"Find a new pen pal",
+      "payload":"persistent:new_penpal"
+    }
+  ]
+};
+
 const commands = {
   "gettingStarted": gettingStarted,
-  "greetingMessage": greetingMessage
+  "greetingMessage": greetingMessage,
+  "persistentMenu": persistentMenu
 };
 
 program
   .version('0.0.1')
-  .option('-s, --script <script>', 'Script To Run', /^(greetingMessage|gettingStarted)$/i)
+  .option('-s, --script <script>', 'Script To Run', /^(greetingMessage|gettingStarted|persistentMenu)$/i)
   .option('-a, --access-token <accessToken>', 'Page Access Token')
   .parse(process.argv);
 
@@ -51,7 +69,7 @@ if (typeof program.script === 'undefined' || typeof commands[program.script] ===
 
 options.path = options.path + "?access_token=" + program.accessToken;
 
-var req = https.request(options, res => {
+let req = https.request(options, res => {
   console.log('STATUS: ' + res.statusCode);
   console.log('HEADERS: ' + JSON.stringify(res.headers));
   res.setEncoding('utf8');
